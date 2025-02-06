@@ -1,3 +1,4 @@
+# deploy.yml 增强版
 name: CI/CD Pipeline
 
 on:
@@ -13,13 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
-          version: '8'  # 你可以指定需要的 pnpm 版本
+          cache: 'npm'
 
       - name: Install dependencies
-        run: pnpm install  # 使用 pnpm 安装依赖
+        run: npm ci
+
 
   deploy:
     needs: build
@@ -29,19 +31,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: '8'  # 确保部署时使用相同版本的 pnpm
-
       - name: Build project
         run: |
-          pnpm install  # 使用 pnpm 安装依赖
-          pnpm run build  # 使用 pnpm 构建项目
+          npm install
+          npm run build
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./dist  # 输出目录
-          keep_files: true  # 保留历史文件
+          publish_dir: ./dist
+          keep_files: true # 保留历史文件

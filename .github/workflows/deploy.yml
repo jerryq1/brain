@@ -9,6 +9,7 @@ on:
 permissions:
   contents: write  # 赋予写入内容的权限
 
+
 jobs:
   build:
     runs-on: ubuntu-latest

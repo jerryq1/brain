@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "gh-pages" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "gh-pages" ]
 
 permissions:
   contents: write  # 赋予写入内容的权限
@@ -29,7 +29,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/gh-pages'
 
     steps:
       - uses: actions/checkout@v3

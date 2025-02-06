@@ -33,6 +33,7 @@ jobs:
 
       - name: Build project
         run: |
+          rm -rf node_modules/rollup
           npm install
           npm run build
 

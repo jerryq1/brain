@@ -37,7 +37,7 @@
 <script setup>
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useModelStore } from '../stores/modelStore'
+import {useModelStore} from '../stores/modelstore.js'
 import { ElNotification } from 'element-plus'
 
 const modelStore = useModelStore()

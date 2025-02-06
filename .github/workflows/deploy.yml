@@ -36,12 +36,9 @@ jobs:
           npm install
           npm run build --no-cache
 
-      - name: Deploy to main branch
-          run: |
-            # 移动构建结果到根目录
-            cp -r ./dist/* .  # 确保构建文件位于 dist 目录，并且复制到根目录
-            git add .
-            git commit -m "Deploy updated build to main"
-            git push origin main  # 推送到 main 分支
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 使用 GitHub 提供的 token 来进行身份验证
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          keep_files: true # 保留历史文件

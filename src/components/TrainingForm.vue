@@ -79,7 +79,7 @@
 
 <script setup>
 import {storeToRefs} from 'pinia'
-import {useModelStore} from '../stores/modelStore'
+import {useModelStore} from '../stores/modelstore.js'
 import {ElMessage} from 'element-plus'
 import {
   Delete,

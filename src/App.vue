@@ -38,8 +38,8 @@
 <script setup>
 import { useModelStore } from '@/stores/modelstore.js'
 import { ElMessage } from 'element-plus'
-import TrainingForm from '../src/components/TrainingForm.vue' // Adjust the path as needed
-import TestForm from '../src/components/TestForm.vue' // Adjust the path as needed
+import TrainingForm from '@/components/TrainingForm.vue' // Adjust the path as needed
+import TestForm from '@/components/TestForm.vue' // Adjust the path as needed
 
 
 const modelStore = useModelStore()

@@ -101,7 +101,7 @@ const startTraining = async () => {
     ElMessage.error('请填写完整的训练数据！')
     return
   }
-  
+
   await modelStore.trainModel()
   ElMessage.success('模型训练完成！')
 }

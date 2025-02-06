@@ -41,4 +41,7 @@ jobs:
         with:
           deploy_key: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-          keep_files: true # 保留历史文件
+          publish_branch: main
+          keep_files: true
+          no_jekyll: true
+          ssh_key: false  # 禁用 SSH

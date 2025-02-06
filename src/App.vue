@@ -1,3 +1,5 @@
+
+
 <template>
   <el-container class="main-container">
     <el-header>
@@ -5,8 +7,8 @@
     </el-header>
 
     <el-main>
-      <training-form/>
-      <test-form/>
+      <training-form />
+      <test-form />
 
       <div class="model-controls">
         <el-upload
@@ -34,10 +36,11 @@
 </template>
 
 <script setup>
-import {useModelStore} from '@/stores/modelstore.js'
-import {ElMessage} from 'element-plus'
-import TrainingForm from '@/components/TrainingForm.vue' // Adjust the path as needed
-import TestForm from '@/components/TestForm.vue' // Adjust the path as needed
+import { useModelStore } from './stores/modelStore'
+import { ElMessage } from 'element-plus'
+
+import TrainingForm from './components/TrainingForm.vue' // Adjust the path as needed
+import TestForm from './components/TestForm.vue' // Adjust the path as needed
 
 
 const modelStore = useModelStore()

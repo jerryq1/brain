@@ -62,8 +62,10 @@
       <el-progress
           :percentage="trainingProgress"
           :status="!isTraining && trainingProgress? 'success' : ''"
-          style="width: 300px; margin-bottom: 20px;"
+          style="width: 300px; margin-bottom: 5px;"
       />
+
+      <div style="margin-bottom: 5px;" v-show="comErrorThresh">当前训练错误率:{{ comErrorThresh }}</div>
 
       <el-button
           type="primary"
@@ -84,10 +86,14 @@ import {ElMessage} from 'element-plus'
 import {
   Delete,
 } from '@element-plus/icons-vue'
+import {computed, onBeforeUnmount} from 'vue';
 
 const modelStore = useModelStore()
-const {trainingData, isTraining, trainingProgress, iterations, errorThresh} = storeToRefs(modelStore)
-
+const {trainingData, isTraining, trainingProgress, iterations, errorThresh, errorThreshNow} = storeToRefs(modelStore)
+// 组件卸载时清理 Worker
+onBeforeUnmount(() => {
+  modelStore.cleanup();
+});
 const addDataRow = () => {
   modelStore.addTrainingData('', '')
 }
@@ -103,11 +109,14 @@ const startTraining = async () => {
   }
 
   await modelStore.trainModel()
-  ElMessage.success('模型训练完成！')
 }
 const changeOptions = () => {
   modelStore.changeOptions(iterations.value, errorThresh.value)
 }
+
+const comErrorThresh = computed(() => {
+  return errorThreshNow.value && typeof errorThreshNow.value === 'number' ? ((errorThreshNow.value * 100).toFixed(2)) + '%' : errorThreshNow.value;
+})
 </script>
 
 <style scoped>

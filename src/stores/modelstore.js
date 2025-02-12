@@ -5,7 +5,11 @@ import {ElMessage} from 'element-plus'
 
 export const useModelStore = defineStore('model', {
   state: () => ({
-    net: new recurrent.LSTM(), // 神经网络实例
+    net: new recurrent.LSTM(
+      {
+        hiddenLayers: [64, 64],  // 双隐藏层增强表达能力
+      }
+    ), // 神经网络实例
     trainingData: [
       {"input": "自定义表单验证", "output": "frontend"}, // 前端任务
       {"input": "实现 WebSocket 进行实时通信", "output": "backend"}, // 后端任务

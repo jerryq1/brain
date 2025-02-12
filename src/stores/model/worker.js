@@ -5,7 +5,10 @@ self.addEventListener('message', async (e) => {
   const {trainingData, iterations, errorThresh} = e.data;
 
   // 创建独立网络实例
-  const net = new recurrent.LSTM();
+  const net = new recurrent.LSTM({
+    hiddenLayers: [64, 64],  // 双隐藏层增强表达能力
+    learningRate: 0.01
+  });
 
   try {
     self.postMessage('进入worker');
@@ -13,7 +16,7 @@ self.addEventListener('message', async (e) => {
       iterations,
       errorThresh,
       log: true,
-      learningRate: 0.3,
+      learningRate: 0.01,
       logPeriod: 100,
       callbackPeriod: 100,
       callback: (status) => {

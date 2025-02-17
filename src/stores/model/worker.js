@@ -1,5 +1,5 @@
 // model.worker.js
-import {recurrent} from 'brain.js';
+import {recurrent,utilities} from 'brain.js';
 
 self.addEventListener('message', async (e) => {
   const {trainingData, iterations, errorThresh} = e.data;
@@ -33,10 +33,20 @@ self.addEventListener('message', async (e) => {
     });
 
     // 训练完成发送结果
+
+    // 下面这行必须要,否则会因为训练成果序列化(net.toJSON())报错
     net.trainOpts.callback = null
     self.postMessage({
       type: 'complete',
       model: net.toJSON(),
+    });
+    const svg = utilities.toSVG(net,{
+      width:800,
+      height:500
+    });
+    self.postMessage({
+      type: 'svg',
+      svg
     });
 
   } catch (error) {

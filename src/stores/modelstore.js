@@ -8,6 +8,7 @@ export const useModelStore = defineStore('model', {
     net: new recurrent.LSTM(
       {
         hiddenLayers: [64, 64],  // 双隐藏层增强表达能力
+        learningRate: 0.01
       }
     ), // 神经网络实例
     trainingData: [
@@ -19,6 +20,8 @@ export const useModelStore = defineStore('model', {
       {"input": "高流量负载均衡", "output": "backend"}, // 后端任务
       {"input": "为残疾用户提供的无障碍功能", "output": "frontend"}, // 前端任务
       {"input": "可扩展架构以应对增长的用户基础", "output": "backend"} // 后端任务 ];
+
+
     ],         // 训练数据
     isTraining: false,        // 是否正在训练
     trainingProgress: 0,      // 训练进度
@@ -55,6 +58,10 @@ export const useModelStore = defineStore('model', {
               this.isTraining = false;
               ElMessage.error(`训练失败: ${msg.error}`);
               break;
+            case 'svg':
+              document.getElementById('networkVisualization').innerHTML = msg.svg;
+            break;
+
           }
         };
       }
